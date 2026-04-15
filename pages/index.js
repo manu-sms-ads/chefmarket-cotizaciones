@@ -90,17 +90,12 @@ export default function Home() {
         <div className="relative z-10 max-w-2xl mx-auto px-4 py-10 md:py-16">
           {/* Logo / Header */}
           <div className="text-center mb-8">
-            {/* Logo placeholder — reemplaza la imagen cuando tengas el archivo */}
-            <div className="inline-flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 bg-brand-500 rounded-xl flex items-center justify-center shadow-md">
-                <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
-                </svg>
-              </div>
-              <div className="text-left">
-                <p className="text-xs text-gray-400 font-medium uppercase tracking-widest leading-none">Chef Market</p>
-                <p className="text-lg font-extrabold text-gray-900 leading-tight">Colombia</p>
-              </div>
+            <div className="flex justify-center mb-4">
+              <img
+                src="/logo-chefmarket.jpg"
+                alt="Chef Market Colombia"
+                className="h-20 w-auto object-contain"
+              />
             </div>
             <h1 className="text-2xl md:text-3xl font-extrabold text-gray-900">
               Solicita tu cotización
