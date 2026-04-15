@@ -1,0 +1,33 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__Claude_in_Chrome__tabs_context_mcp",
+      "Bash(npm install:*)",
+      "mcp__Claude_in_Chrome__navigate",
+      "Bash(cmd /c \"node --version && npm --version\")",
+      "Bash(cmd /c \"where node 2>&1 && node --version 2>&1 && npm --version 2>&1\")",
+      "Bash(cmd /c \"where node\")",
+      "Bash(cmd /c \"dir \\\\\"C:\\\\Program Files\\\\nodejs\\\\\" 2>&1\")",
+      "Bash(cmd /c \"dir \\\\\"C:\\\\Program Files \\(x86\\)\\\\nodejs\\\\\" 2>&1\")",
+      "Bash(powershell -Command \"node --version; npm --version\")",
+      "Bash(powershell -Command \"winget install OpenJS.NodeJS.LTS --accept-source-agreements --accept-package-agreements 2>&1\")",
+      "mcp__Claude_in_Chrome__find",
+      "mcp__Claude_in_Chrome__read_page",
+      "mcp__Claude_in_Chrome__javascript_tool",
+      "Bash(powershell -Command \"Get-Content 'C:\\\\Users\\\\Manuel A Cortés G\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\C--Users-Manuel-A-Cort-s-G-Downloads-CHEF-MARKET---FORM-INICIAL---RUT\\\\10eee82a-7dc0-452a-ac16-e096095d3a67\\\\tasks\\\\bt7m66qx3.output' | Select-Object -Last 10\")",
+      "Bash(powershell -Command \"& 'C:\\\\Program Files\\\\nodejs\\\\npm.cmd' install --prefix 'C:\\\\Users\\\\Manuel A Cortés G\\\\Downloads\\\\CHEF MARKET - FORM INICIAL + RUT' 2>&1\")",
+      "Bash(powershell -Command \"Get-Content 'C:\\\\Users\\\\Manuel A Cortés G\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\C--Users-Manuel-A-Cort-s-G-Downloads-CHEF-MARKET---FORM-INICIAL---RUT\\\\10eee82a-7dc0-452a-ac16-e096095d3a67\\\\tasks\\\\bgm4ocjil.output' | Select-Object -Last 20\")",
+      "Bash(powershell -Command \"Get-Command node -ErrorAction SilentlyContinue; dir 'C:\\\\Program Files\\\\nodejs' -ErrorAction SilentlyContinue | Select-Object Name | head -5; [System.Environment]::GetEnvironmentVariable\\('PATH','Machine'\\) | Out-String\")",
+      "Bash(powershell -Command \"& 'C:\\\\Program Files\\\\nodejs\\\\node.exe' 'C:\\\\Program Files\\\\nodejs\\\\node_modules\\\\npm\\\\bin\\\\npm-cli.js' install --prefix 'C:\\\\Users\\\\Manuel A Cortés G\\\\Downloads\\\\CHEF MARKET - FORM INICIAL + RUT' 2>&1\")",
+      "Bash(powershell -Command \"Get-Content 'C:\\\\Users\\\\Manuel A Cortés G\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\C--Users-Manuel-A-Cort-s-G-Downloads-CHEF-MARKET---FORM-INICIAL---RUT\\\\10eee82a-7dc0-452a-ac16-e096095d3a67\\\\tasks\\\\brf91h4zo.output' | Select-Object -Last 15\")",
+      "Bash(powershell -ExecutionPolicy Bypass -File \"C:\\\\Users\\\\Manuel A Cortés G\\\\Downloads\\\\CHEF MARKET - FORM INICIAL + RUT\\\\install.ps1\")",
+      "Bash(powershell -Command \"Get-ChildItem 'C:\\\\Users\\\\Manuel A Cortés G\\\\Downloads' -Filter 'chefmarket-cotizaciones*.json' | Sort-Object LastWriteTime -Descending | Select-Object -First 1 | Select-Object FullName, LastWriteTime\")",
+      "mcp__Claude_in_Chrome__form_input",
+      "Bash(powershell -ExecutionPolicy Bypass -File \"C:\\\\Users\\\\Manuel A Cortés G\\\\Downloads\\\\CHEF MARKET - FORM INICIAL + RUT\\\\start-dev.ps1\")",
+      "Bash(powershell -Command \"Get-Content 'C:\\\\Users\\\\Manuel A Cortés G\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\C--Users-Manuel-A-Cort-s-G-Downloads-CHEF-MARKET---FORM-INICIAL---RUT\\\\10eee82a-7dc0-452a-ac16-e096095d3a67\\\\tasks\\\\b4wcj3st2.output' | Select-Object -Last 20\")",
+      "Bash(powershell -Command \"git --version; gh --version\")",
+      "Bash(powershell -Command \"winget install GitHub.cli --accept-source-agreements --accept-package-agreements 2>&1\")",
+      "Bash(powershell -Command ':*)"
+    ]
+  }
+}
