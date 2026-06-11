@@ -1,4 +1,4 @@
-export default function StepThree({ rutData, contactData, rutLegible = true }) {
+export default function StepThree({ rutData, contactData }) {
   const fields = [
     { label: 'NIT', value: rutData?.nit ? `${rutData.nit}${rutData.digitoVerificacion ? `-${rutData.digitoVerificacion}` : ''}` : null },
     { label: 'Razón Social', value: rutData?.razonSocial },
@@ -38,32 +38,6 @@ export default function StepThree({ rutData, contactData, rutLegible = true }) {
           con <span className="font-medium text-gray-700">{contactData?.email}</span> a la brevedad.
         </p>
       </div>
-
-      {/* Aviso: RUT no legible (PDF escaneado / imagen) */}
-      {!rutLegible && (
-        <div className="flex items-start gap-2 p-4 bg-amber-50 border border-amber-200 rounded-xl text-left">
-          <svg
-            className="w-5 h-5 text-amber-500 mt-0.5 flex-shrink-0"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            strokeWidth={2}
-          >
-            <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
-          </svg>
-          <div>
-            <p className="text-sm font-semibold text-amber-800">
-              No pudimos leer automáticamente tu RUT
-            </p>
-            <p className="text-xs text-amber-700 mt-1">
-              Tu archivo parece ser una imagen o un PDF escaneado (sin texto seleccionable).
-              No te preocupes: tu solicitud quedó registrada y nuestro equipo extraerá los datos
-              manualmente. Para agilizar el proceso, te recomendamos enviar el{' '}
-              <strong>RUT original descargado del portal de la DIAN</strong> (en PDF con texto).
-            </p>
-          </div>
-        </div>
-      )}
 
       {/* Resumen de datos extraídos del RUT */}
       {fields.length > 0 && (

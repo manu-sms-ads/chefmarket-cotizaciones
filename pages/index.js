@@ -11,7 +11,7 @@ export default function Home() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [rutFile, setRutFile] = useState(null);
   const [rutData, setRutData] = useState(null);
-  const [rutLegible, setRutLegible] = useState(true);
+  const [rutError, setRutError] = useState('');
 
   const [contactData, setContactData] = useState({
     nombreResponsable: '',
@@ -30,6 +30,7 @@ export default function Home() {
 
   const handleSubmit = async () => {
     setIsSubmitting(true);
+    setRutError('');
 
     const toastId = toast.loading('Procesando tu RUT y enviando información...', {
       style: { minWidth: '280px' },
@@ -50,11 +51,17 @@ export default function Home() {
       const result = await res.json();
 
       if (!res.ok) {
+        // RUT ilegible (imagen/escaneado): mantener al usuario en el paso 2
+        // con un aviso claro para que suba el RUT original de la DIAN.
+        if (res.status === 422 && result.rutIlegible) {
+          setRutError(result.error);
+          toast.error('No pudimos leer tu RUT', { id: toastId });
+          return;
+        }
         throw new Error(result.error || 'Error al enviar la solicitud');
       }
 
       setRutData(result.rutData || {});
-      setRutLegible(result.rutLegible !== false);
       toast.success('¡Solicitud enviada correctamente!', { id: toastId });
       setCurrentStep(3);
     } catch (err) {
@@ -122,15 +129,19 @@ export default function Home() {
             {currentStep === 2 && (
               <StepTwo
                 rutFile={rutFile}
-                onFileChange={setRutFile}
+                onFileChange={(f) => {
+                  setRutFile(f);
+                  setRutError('');
+                }}
                 onNext={handleSubmit}
                 onBack={() => setCurrentStep(1)}
                 isSubmitting={isSubmitting}
+                serverError={rutError}
               />
             )}
 
             {currentStep === 3 && (
-              <StepThree rutData={rutData} contactData={contactData} rutLegible={rutLegible} />
+              <StepThree rutData={rutData} contactData={contactData} />
             )}
           </div>
 

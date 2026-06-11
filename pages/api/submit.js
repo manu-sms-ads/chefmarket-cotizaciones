@@ -92,15 +92,25 @@ export default async function handler(req, res) {
     // 5. Parsear campos del RUT
     const rutData = parseRutText(pdfText);
 
-    // 5b. Determinar si el RUT fue legible.
+    // 5b. Validar que el RUT sea legible.
     //     Los RUT "impresos a PDF" o escaneados llegan como imagen sin capa de
     //     texto → pdfText queda vacío y no se extrae ningún campo. En ese caso
-    //     marcamos el lead para extracción manual y avisamos al usuario.
+    //     NO guardamos el lead: bloqueamos el envío y le pedimos al usuario el
+    //     RUT original descargado de la DIAN. Ningún lead entra al CRM sin RUT.
     const textoUtil = pdfText.replace(/\s/g, '').length;
     const camposExtraidos = Object.values(rutData).filter(Boolean).length;
     const rutLegible = textoUtil > 50 && camposExtraidos >= 2;
 
-    // 6. Guardar en Google Sheets
+    if (!rutLegible) {
+      return res.status(422).json({
+        error:
+          'No pudimos leer tu RUT. El archivo parece ser una imagen o un PDF escaneado. ' +
+          'Por favor descarga el RUT original desde el portal de la DIAN (en PDF con texto seleccionable) y vuelve a subirlo.',
+        rutIlegible: true,
+      });
+    }
+
+    // 6. Guardar en Google Sheets (solo si el RUT fue legible)
     await appendRow({
       contactData: {
         nombreResponsable: fields.nombreResponsable,
@@ -114,7 +124,6 @@ export default async function handler(req, res) {
       },
       rutData,
       rutFileName: rutFile.originalFilename || 'rut.pdf',
-      rutLegible,
     });
 
     // 7. Responder con éxito e incluir los datos extraídos del RUT
@@ -122,7 +131,6 @@ export default async function handler(req, res) {
       success: true,
       message: 'Solicitud registrada correctamente.',
       rutData,
-      rutLegible,
     });
   } catch (error) {
     console.error('Error en /api/submit:', error);

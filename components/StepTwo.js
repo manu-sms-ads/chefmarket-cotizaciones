@@ -2,7 +2,7 @@ import { useCallback, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import clsx from 'clsx';
 
-export default function StepTwo({ rutFile, onFileChange, onNext, onBack, isSubmitting }) {
+export default function StepTwo({ rutFile, onFileChange, onNext, onBack, isSubmitting, serverError }) {
   const [error, setError] = useState('');
 
   const onDrop = useCallback(
@@ -143,13 +143,37 @@ export default function StepTwo({ rutFile, onFileChange, onNext, onBack, isSubmi
         </div>
       )}
 
-      {/* Error */}
+      {/* Error de validación local */}
       {error && (
         <div className="flex items-start gap-2 p-3 bg-red-50 border border-red-200 rounded-xl">
           <svg className="w-4 h-4 text-red-500 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
           </svg>
           <p className="text-sm text-red-600">{error}</p>
+        </div>
+      )}
+
+      {/* Error del servidor: RUT ilegible (imagen / escaneado) */}
+      {serverError && (
+        <div className="p-4 bg-red-50 border border-red-200 rounded-xl space-y-2">
+          <div className="flex items-start gap-2">
+            <svg className="w-5 h-5 text-red-500 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+            </svg>
+            <div>
+              <p className="text-sm font-semibold text-red-700">No pudimos leer tu RUT</p>
+              <p className="text-sm text-red-600 mt-1">{serverError}</p>
+            </div>
+          </div>
+          <div className="text-xs text-red-600 bg-red-100/60 rounded-lg p-3 leading-relaxed">
+            <p className="font-semibold mb-1">¿Cómo descargar el RUT original?</p>
+            <ol className="list-decimal list-inside space-y-0.5">
+              <li>Ingresa al portal de la DIAN (muisca.dian.gov.co).</li>
+              <li>Entra a tu cuenta y ve a “Consultar / Generar el RUT”.</li>
+              <li>Descarga el documento como PDF (no lo escanees ni lo imprimas a PDF).</li>
+              <li>Súbelo aquí: ese PDF sí contiene texto y podremos leerlo.</li>
+            </ol>
+          </div>
         </div>
       )}
 
