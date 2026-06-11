@@ -11,6 +11,7 @@ export default function Home() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [rutFile, setRutFile] = useState(null);
   const [rutData, setRutData] = useState(null);
+  const [rutLegible, setRutLegible] = useState(true);
 
   const [contactData, setContactData] = useState({
     nombreResponsable: '',
@@ -53,6 +54,7 @@ export default function Home() {
       }
 
       setRutData(result.rutData || {});
+      setRutLegible(result.rutLegible !== false);
       toast.success('¡Solicitud enviada correctamente!', { id: toastId });
       setCurrentStep(3);
     } catch (err) {
@@ -128,7 +130,7 @@ export default function Home() {
             )}
 
             {currentStep === 3 && (
-              <StepThree rutData={rutData} contactData={contactData} />
+              <StepThree rutData={rutData} contactData={contactData} rutLegible={rutLegible} />
             )}
           </div>
 

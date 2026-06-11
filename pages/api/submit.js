@@ -92,6 +92,14 @@ export default async function handler(req, res) {
     // 5. Parsear campos del RUT
     const rutData = parseRutText(pdfText);
 
+    // 5b. Determinar si el RUT fue legible.
+    //     Los RUT "impresos a PDF" o escaneados llegan como imagen sin capa de
+    //     texto → pdfText queda vacío y no se extrae ningún campo. En ese caso
+    //     marcamos el lead para extracción manual y avisamos al usuario.
+    const textoUtil = pdfText.replace(/\s/g, '').length;
+    const camposExtraidos = Object.values(rutData).filter(Boolean).length;
+    const rutLegible = textoUtil > 50 && camposExtraidos >= 2;
+
     // 6. Guardar en Google Sheets
     await appendRow({
       contactData: {
@@ -106,6 +114,7 @@ export default async function handler(req, res) {
       },
       rutData,
       rutFileName: rutFile.originalFilename || 'rut.pdf',
+      rutLegible,
     });
 
     // 7. Responder con éxito e incluir los datos extraídos del RUT
@@ -113,6 +122,7 @@ export default async function handler(req, res) {
       success: true,
       message: 'Solicitud registrada correctamente.',
       rutData,
+      rutLegible,
     });
   } catch (error) {
     console.error('Error en /api/submit:', error);
